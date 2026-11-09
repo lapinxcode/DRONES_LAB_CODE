@@ -1,7 +1,7 @@
 ### ekf config file ###
 /**:
     ros__parameters:
-
+      #ordered as x, y, z, roll, pitch, yaw, vx, vy, vz, vroll, vpitch, vyaw, ax, ay, az
         initial_state: [-180., -20., -7.,
                         0., 0., 0.,
                         0., 0., 0., 0., 0., 0., 0., 0., 0.]  # vel / acc
@@ -30,16 +30,36 @@
                        false, false, false,
                        false, false, false,
                        false, false, false]
+                       
+        odom0: /bluerov2/depth
+        odom0_config: [false, false,  true,
+                       false, false, false,
+                       false, false, false,
+                       false, false, false,
+                       false, false, false]
+                       
+        odom1: /bluerov2/usbl
+        odom1_config: [ true,  true,  true,
+                       false, false, false,
+                       false, false, false,
+                       false, false, false,
+                       false, false, false]
 
-        imu0: some_imu
-        imu0_config: [false, false, false,
+        imu0: /bluerov2/lsm
+        imu0_config: [true,  true,  true,
                       true,  true,  true,
                       false, false, false,
+                      false, false, false,
+                      false, false, false]
+                      
+        imu1: /bluerov2/mpu
+        imu1_config: [true,  true,  true,
                       true,  true,  true,
+                      false, false, false,
+                      false, false, false,
                       false, false, false]
 
-
-
+# A giant purple uncertainty box will surge - that is because we are using IMUs for acceleration, which cause the drift. To solve this in a real appllication, we need to cross check the data with other sensors
 
 # [ADVANCED] Some IMUs automatically remove acceleration due to gravity, and others don't. If yours doesn't, please set
 # this to true, and *make sure* your data conforms to REP-103, specifically, that the data is in ENU frame.
